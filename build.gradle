@@ -100,5 +100,5 @@ def mavenProperty(property) {
 task generateWrapper(type: Wrapper) {
     description "Generates Gradle wrapper."
 
-    gradleVersion = "1.12"
+    gradleVersion = "2.1"
 }
