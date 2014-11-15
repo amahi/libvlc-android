@@ -42,6 +42,10 @@ task cloneVlc(dependsOn: cloneSdk) << {
 	workingDir file("vlc-android")
 	commandLine "git", "clone", "git://git.videolan.org/vlc.git", "vlc"
     }
+    exec {
+        workingDir file("vlc-android")
+        commandLine "git", "apply", "--index", file("patch/update_tested_hash.patch").path
+    }
 }
 
 cloneVlc.onlyIf {
@@ -49,10 +53,6 @@ cloneVlc.onlyIf {
 }
 
 task compileSdk(dependsOn: cloneVlc) << {
-    exec {
-        workingDir file("vlc-android")
-        commandLine "git", "apply", "--index", file("patch/update_tested_hash.patch").path
-    }
     exec {
         workingDir file("vlc-android")
         commandLine "sh", "compile.sh", "--build", "jni", "release"
