@@ -37,13 +37,20 @@ cloneSdk.onlyIf {
     !file("vlc-android").exists()
 }
 
-task compileSdk(dependsOn: cloneSdk) << {
+task cloneVlc(dependsOn: cloneSdk) << {
+    exec {
+	workingDir file("vlc-android")
+	commandLine "git", "clone", "git://git.videolan.org/vlc.git", "vlc"
+    }
+}
+
+cloneVlc.onlyIf {
+    !file("vlc-android/vlc").exists()
+}
+
+task compileSdk(dependsOn: cloneVlc) << {
     exec {
         workingDir file("vlc-android")
-        commandLine "sh", "compile.sh", "--fetch"
-    }
-    exec {
-        workingDir file("vlc-android/vlc")
         commandLine "git", "apply", "--index", file("patch/update_tested_hash.patch").path
     }
     exec {
