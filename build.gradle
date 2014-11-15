@@ -31,6 +31,10 @@ task cloneSdk << {
         workingDir file("vlc-android")
         commandLine "git", "checkout", "--quiet", String.format("%s", mavenProperty("buildhash"))
     }
+    exec {
+        workingDir file("vlc-android")
+        commandLine "git", "apply", "--index", file("patch/update_tested_hash.patch").path
+    }
 }
 
 cloneSdk.onlyIf {
@@ -43,9 +47,14 @@ task cloneVlc(dependsOn: cloneSdk) << {
 	commandLine "git", "clone", "git://git.videolan.org/vlc.git", "vlc"
     }
     exec {
-        workingDir file("vlc-android")
-        commandLine "git", "apply", "--index", file("patch/update_tested_hash.patch").path
+        workingDir file("vlc-android/vlc")
+	commandLine "git", "checkout", "-B", "android", String.format("%s", mavenProperty("testedhash"))
     }
+    exec {
+        workingDir file("vlc-android/vlc")
+        commandLine "git", "apply", "--index", file("patch/always-read-avi-index.patch").path
+    }
+
 }
 
 cloneVlc.onlyIf {
