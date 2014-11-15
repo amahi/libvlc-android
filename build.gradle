@@ -29,7 +29,7 @@ task cloneSdk << {
     }
     exec {
         workingDir file("vlc-android")
-        commandLine "git", "checkout", "--quiet", String.format("tags/%s", mavenProperty("version"))
+        commandLine "git", "checkout", "--quiet", String.format("%s", mavenProperty("buildhash"))
     }
 }
 
@@ -44,7 +44,7 @@ task compileSdk(dependsOn: cloneSdk) << {
     }
     exec {
         workingDir file("vlc-android/vlc")
-        commandLine "git", "apply", "--index", file("patch/always-read-avi-index.patch").path
+        commandLine "git", "apply", "--index", file("patch/update_tested_hash.patch").path
     }
     exec {
         workingDir file("vlc-android")
