@@ -65,11 +65,11 @@ task compileSdk(dependsOn: cloneVlc) << {
 
 task buildSdk(dependsOn: compileSdk) << {
     copy {
-        from "vlc-android/vlc-android/libs"
+        from "vlc-android/libvlc/libs"
         into "src/main/jniLibs"
     }
     copy {
-        from "vlc-android/vlc-android/src/org/videolan/libvlc"
+        from "vlc-android/libvlc/src/org/videolan/libvlc"
         into "src/main/java/org/videolan/libvlc"
     }
 }
