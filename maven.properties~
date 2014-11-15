@@ -1,0 +1,4 @@
+group = org.videolan
+artifact = libvlc
+version = 1.0.0
+buildhash = 761e1db
