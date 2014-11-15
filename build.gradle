@@ -55,7 +55,7 @@ task compileSdk(dependsOn: cloneVlc) << {
     }
     exec {
         workingDir file("vlc-android")
-        commandLine "sh", "compile.sh", "--build", "release"
+        commandLine "sh", "compile.sh", "--build", "jni", "release"
     }
     exec {
         workingDir file("vlc-android")
